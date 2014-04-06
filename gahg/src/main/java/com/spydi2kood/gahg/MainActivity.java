@@ -80,6 +80,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	@Override
 	public void onClick(View view) {
 		Log.d(TAG, "onClick");
-		Toast.makeText(this, "Button Clicked", Toast.LENGTH_LONG).show();
+		switch (view.getId()) {
+			case R.id.mButton:
+				Toast.makeText(this, "Button Clicked", Toast.LENGTH_LONG).show();
+				execute();
+		}
+	}
+
+	private void execute() {
+		String mText = editText.getText().toString();
+		if (!mText.equals("")) textView.setText(mText);
 	}
 }
