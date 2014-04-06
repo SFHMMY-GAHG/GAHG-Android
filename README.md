@@ -38,7 +38,14 @@ Instructions
 
 After Break
 --------------
--- 
+- Download AQuery.jar from link http://code.google.com/p/android-query/downloads/list
+- Copy it to libs and Re-sync gradle
+- MainActivity
+	* Declare AQuery
+	* Initialize in OnCreate
+	* Create serverRequest
+	* Create responce
+	* Don't use our AsyncTask, instead call serverRequest()
 
 EXTRAS
 ----------
