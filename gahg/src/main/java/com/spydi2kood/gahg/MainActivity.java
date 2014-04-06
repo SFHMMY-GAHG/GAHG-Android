@@ -103,6 +103,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		}
 	}
 
+	/**
+	 * Function to update the textView with the username and the message from the editText
+	 */
 	private void execute() {
 		String mText = editText.getText().toString();
 		/*try {
@@ -118,6 +121,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		if (!mText.equals("") && !mUsername.equals("")) textView.setText(mUsername.concat(": " + mText));
 	}
 
+	/**
+	 * This function send the username and message to the specified url
+	 */
 	public void serverRequest() {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String url = "http://" + sharedPreferences.getString("serverIP", "") + "/GAHG-Grails/android/show";
@@ -132,11 +138,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		}
 	}
 
+	/**
+	 * This function is called when server request finishes.
+	 *
+	 * @param url        URL of the response
+	 * @param jsonObject This object has the response of the server in JSON format
+	 * @param ajaxStatus The status of the response
+	 */
 	public void response(String url, JSONObject jsonObject, AjaxStatus ajaxStatus) {
 		Log.d(TAG, "response");
 		if (jsonObject != null) {
 			try {
-				String response = jsonObject.getString("response");
+				String response = jsonObject.getString("status");
 				Log.d(TAG, "Server Response: " + response);
 				textView.setText(response);
 			} catch (JSONException e) {
@@ -148,23 +161,38 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		}
 	}
 
+	/**
+	 * AsyncTask to do work on background. This way the UI doesn't freeze.
+	 */
 	public class Executor extends AsyncTask<Void, Void, String> {
 
 		String mText;
 		String mUsername;
 
+		/**
+		 * This function runs on UI and is used to initialize the variables needed fot the thread. It starts automatically when you call .execute() on an AsyncTask.
+		 * When it finishes it calls doInBackground() automatically.
+		 */
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			Log.d(TAG, "onPreExecute");
 			mText = editText.getText().toString();
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			mUsername = sharedPreferences.getString("mTextPreference", "");
 			Log.d(TAG, "username: " + mUsername);
 		}
 
+		/**
+		 * This function runs at the background and it executes automatically after onPreExecuted. It is used to do all the heavy work needed.
+		 * When it finishes it calls onPostExecute() automatically.
+		 *
+		 * @param voids nothing is needed.
+		 * @return aString to be shown at textView.
+		 */
 		@Override
 		protected String doInBackground(Void... voids) {
-
+			Log.d(TAG, "doInBackground");
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
@@ -178,9 +206,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 			}
 		}
 
+		/**
+		 * This function runs on UI and executes after doInBackground() automatically. It is used to do the final work before AsyncTask terminates.
+		 * @param aString  receives the text to be shown at textView.
+		 */
 		@Override
 		protected void onPostExecute(String aString) {
 			super.onPostExecute(aString);
+			Log.d(TAG, "onPostExecute");
 			if (!aString.equals("")) textView.setText(aString);
 		}
 	}
