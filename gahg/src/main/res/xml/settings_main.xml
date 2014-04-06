@@ -7,4 +7,10 @@
             android:title="@string/username"
             android:summary="@string/usernameSum"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/remote_settings">
+        <EditTextPreference
+            android:key="serverIP"
+            android:title="@string/serverIP"
+            android:summary="@string/serverIPSum"/>
+    </PreferenceCategory>
 </PreferenceScreen>

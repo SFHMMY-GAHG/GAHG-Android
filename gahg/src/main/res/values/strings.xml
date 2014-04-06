@@ -9,5 +9,8 @@
     <string name="username">Username</string>
     <string name="usernameSum">Enter your preferred username.</string>
     <string name="general_settings">General Settings</string>
+    <string name="remote_settings">Remote Settings</string>
+    <string name="serverIP">Server IP</string>
+    <string name="serverIPSum">Insert server IP here.</string>
 
 </resources>
