@@ -2,8 +2,10 @@ package com.spydi2kood.gahg;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,11 +13,13 @@ import android.widget.TextView;
 /**
  * The main activity of the App. Its view is at res/layout/activity_main.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
+	private static final String TAG = MainActivity.class.getSimpleName();
 	private EditText editText;
 	private Button button;
 	private TextView textView;
+
 	/**
 	 * First function to be called when opening the app.
 	 *
@@ -30,6 +34,9 @@ public class MainActivity extends ActionBarActivity {
 		editText = (EditText) findViewById(R.id.mEditText);
 		button = (Button) findViewById(R.id.mButton);
 		textView = (TextView) findViewById(R.id.mTextView);
+
+		//Declare onClick listener for button
+		button.setOnClickListener(this);
 	}
 
 	/**
@@ -64,4 +71,14 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * This function is called when the button is clicked. The same button would be called if any other view with the same onClickListener is clicked.
+	 *
+	 * @param view
+	 */
+	@Override
+	public void onClick(View view) {
+		Log.d(TAG, "onClick");
+
+	}
 }
