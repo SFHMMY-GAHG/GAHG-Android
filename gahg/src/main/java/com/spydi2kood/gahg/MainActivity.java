@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * The main activity of the App. Its view is at res/layout/activity_main.
@@ -79,6 +80,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	@Override
 	public void onClick(View view) {
 		Log.d(TAG, "onClick");
-
+		Toast.makeText(this, "Button Clicked", Toast.LENGTH_LONG).show();
 	}
 }
