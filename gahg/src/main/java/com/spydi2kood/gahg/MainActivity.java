@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		//Declare onClick listener for button
 		button.setOnClickListener(this);
 
+		//Initialize the asynchronous query object
 		aQuery = new AQuery(this);
 	}
 
@@ -95,6 +96,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	@Override
 	public void onClick(View view) {
 		Log.d(TAG, "onClick");
+		//Check for the id of the button
 		switch (view.getId()) {
 			case R.id.mButton:
 				//				Toast.makeText(this, "Button Clicked", Toast.LENGTH_LONG).show();
@@ -107,6 +109,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	 * Function to update the textView with the username and the message from the editText
 	 */
 	private void execute() {
+		//retrieve the text of the editText
 		String mText = editText.getText().toString();
 		/*try {
 			Thread.sleep(2000);
@@ -114,10 +117,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 			e.printStackTrace();
 		}*/
 
+		//get the username from settings
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String mUsername = sharedPreferences.getString("mTextPreference", "");
 		Log.d(TAG, "username: " + mUsername);
 
+		//if nothing is empty, set the concatenation of them at textView
 		if (!mText.equals("") && !mUsername.equals("")) textView.setText(mUsername.concat(": " + mText));
 	}
 
@@ -125,16 +130,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	 * This function send the username and message to the specified url
 	 */
 	public void serverRequest() {
+		//initialize url, username and message to be sent
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String url = "http://" + sharedPreferences.getString("serverIP", "") + "/GAHG-Grails/android/show";
 		String mUsername = sharedPreferences.getString("mTextPreference", "");
 		String mText = editText.getText().toString();
+
+		//prepare a Hashmap to hold all the parameters (needed by aQuery)
 		HashMap<String, String> params = new HashMap<String, String>();
+
+		//if nothing is empty, put the inside the parameters and send the asynchronous query
 		if (!mText.equals("") && !mUsername.equals("")) {
 			params.put("username", mUsername);
 			params.put("post", mText);
 			aQuery.ajax(url, params, JSONObject.class, this, "response");
 			Toast.makeText(this, "Request Sent", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, "Request Not Sent. Username and Message cannot be empty", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -149,8 +161,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		Log.d(TAG, "response");
 		if (jsonObject != null) {
 			try {
+				//retrieve the response
 				String response = jsonObject.getString("status");
 				Log.d(TAG, "Server Response: " + response);
+
+				//display the response at textView
 				textView.setText(response);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -177,6 +192,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		protected void onPreExecute() {
 			super.onPreExecute();
 			Log.d(TAG, "onPreExecute");
+
+			//initialize message and username
 			mText = editText.getText().toString();
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			mUsername = sharedPreferences.getString("mTextPreference", "");
@@ -193,12 +210,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		@Override
 		protected String doInBackground(Void... voids) {
 			Log.d(TAG, "doInBackground");
+
+			//Heavy work :P
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 
+			//if nothing is empty, return the concatenation of username and message
 			if (!mText.equals("") && !mUsername.equals("")) {
 				return mUsername.concat(": " + mText);
 			} else {
@@ -208,12 +228,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 		/**
 		 * This function runs on UI and executes after doInBackground() automatically. It is used to do the final work before AsyncTask terminates.
-		 * @param aString  receives the text to be shown at textView.
+		 *
+		 * @param aString receives the text to be shown at textView.
 		 */
 		@Override
 		protected void onPostExecute(String aString) {
 			super.onPostExecute(aString);
 			Log.d(TAG, "onPostExecute");
+
+			//if there is text to be displayed set it to the textView.
 			if (!aString.equals("")) textView.setText(aString);
 		}
 	}
