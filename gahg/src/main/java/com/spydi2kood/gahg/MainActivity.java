@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * The main activity of the App. Its view is at res/layout/activity_main.
  */
 public class MainActivity extends ActionBarActivity {
 
+	private EditText editText;
+	private Button button;
+	private TextView textView;
 	/**
 	 * First function to be called when opening the app.
 	 *
@@ -19,6 +25,11 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// Find all views from layout. Function findViewById() must be called after setContentView().
+		editText = (EditText) findViewById(R.id.mEditText);
+		button = (Button) findViewById(R.id.mButton);
+		textView = (TextView) findViewById(R.id.mTextView);
 	}
 
 	/**
