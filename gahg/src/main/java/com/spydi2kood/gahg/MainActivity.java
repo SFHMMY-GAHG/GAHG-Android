@@ -1,5 +1,6 @@
 package com.spydi2kood.gahg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -67,7 +68,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			return true;
+			startActivity(new Intent(this, SettingsActivity.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}
