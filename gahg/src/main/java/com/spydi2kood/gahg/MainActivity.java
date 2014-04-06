@@ -15,6 +15,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxStatus;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 /**
  * The main activity of the App. Its view is at res/layout/activity_main.
  */
@@ -24,6 +32,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	private EditText editText;
 	private Button button;
 	private TextView textView;
+	private AQuery aQuery;
 
 	/**
 	 * First function to be called when opening the app.
@@ -42,6 +51,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 		//Declare onClick listener for button
 		button.setOnClickListener(this);
+
+		aQuery = new AQuery(this);
 	}
 
 	/**
@@ -86,8 +97,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		Log.d(TAG, "onClick");
 		switch (view.getId()) {
 			case R.id.mButton:
-//				Toast.makeText(this, "Button Clicked", Toast.LENGTH_LONG).show();
-				new Executor().execute();
+				//				Toast.makeText(this, "Button Clicked", Toast.LENGTH_LONG).show();
+				//				new Executor().execute();
+				serverRequest();
 		}
 	}
 
@@ -104,6 +116,36 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		Log.d(TAG, "username: " + mUsername);
 
 		if (!mText.equals("") && !mUsername.equals("")) textView.setText(mUsername.concat(": " + mText));
+	}
+
+	public void serverRequest() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String url = "http://" + sharedPreferences.getString("serverIP", "") + "/GAHG-Grails/android/show";
+		String mUsername = sharedPreferences.getString("mTextPreference", "");
+		String mText = editText.getText().toString();
+		HashMap<String, String> params = new HashMap<String, String>();
+		if (!mText.equals("") && !mUsername.equals("")) {
+			params.put("username", mUsername);
+			params.put("post", mText);
+			aQuery.ajax(url, params, JSONObject.class, this, "response");
+			Toast.makeText(this, "Request Sent", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void response(String url, JSONObject jsonObject, AjaxStatus ajaxStatus) {
+		Log.d(TAG, "response");
+		if (jsonObject != null) {
+			try {
+				String response = jsonObject.getString("response");
+				Log.d(TAG, "Server Response: " + response);
+				textView.setText(response);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Log.d(TAG, "Response is null");
+			textView.setText("No response :(");
+		}
 	}
 
 	public class Executor extends AsyncTask<Void, Void, String> {
