@@ -1,7 +1,9 @@
 package com.spydi2kood.gahg;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -95,6 +97,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}*/
-		if (!mText.equals("")) textView.setText(mText);
+
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String mUsername = sharedPreferences.getString("mTextPreference", "");
+		Log.d(TAG, "username: " + mUsername);
+
+		if (!mText.equals("") && !mUsername.equals("")) textView.setText(mUsername.concat(": " + mText));
 	}
 }
