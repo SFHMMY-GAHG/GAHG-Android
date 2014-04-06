@@ -24,8 +24,8 @@ Instructions
 		- set textview with string
 		- show problem with Thread.sleep(2000)
 - Create new PreferenceActivity --> SettingsActivity + ANDROID MANIFEST
-		- create directory xml and new resource --> settings_main --> PreferenceScreen/PreferenceCategory/EditTextPreference (key, title, summary)
-		- addPreferenceFromRecourse (settings_main)
+	* create directory xml and new resource --> settings_main --> PreferenceScreen/PreferenceCategory/EditTextPreference (key, title, summary)
+	* addPreferenceFromRecourse (settings_main)
 - In MainActivity 
 	* In Execute()
 		- SharedPreferences
