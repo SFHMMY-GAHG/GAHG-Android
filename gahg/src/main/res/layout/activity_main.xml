@@ -15,4 +15,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"/>
 
+    <Button
+        android:id="@+id/mButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mTextView"
+        android:text="@string/execute"/>
+
 </RelativeLayout>
