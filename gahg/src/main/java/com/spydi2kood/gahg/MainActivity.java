@@ -89,6 +89,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 	private void execute() {
 		String mText = editText.getText().toString();
+		/*try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
 		if (!mText.equals("")) textView.setText(mText);
 	}
 }
