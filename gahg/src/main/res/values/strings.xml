@@ -6,5 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="execute">Execute</string>
     <string name="mHint">Enter your message here...</string>
+    <string name="username">Username</string>
+    <string name="usernameSum">Enter your preferred username.</string>
+    <string name="general_settings">General Settings</string>
 
 </resources>
