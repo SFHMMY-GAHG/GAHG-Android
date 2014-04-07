@@ -132,10 +132,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	public void serverRequest() {
 		//initialize url, username and message to be sent
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String url = "http://" + sharedPreferences.getString("serverIP", "") + "/GAHG-Grails/android/show";
+		String url = "http://" + sharedPreferences.getString("serverIP", "") + "/GAHG-Grails/android/show/";
 		String mUsername = sharedPreferences.getString("mTextPreference", "");
 		String mText = editText.getText().toString();
-
+        Log.d(TAG,url);
 		//prepare a Hashmap to hold all the parameters (needed by aQuery)
 		HashMap<String, String> params = new HashMap<String, String>();
 
