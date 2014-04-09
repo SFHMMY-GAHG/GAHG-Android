@@ -135,7 +135,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		String url = "http://" + sharedPreferences.getString("serverIP", "") + "/GAHG-Grails/android/show/";
 		String mUsername = sharedPreferences.getString("mTextPreference", "");
 		String mText = editText.getText().toString();
-        Log.d(TAG,url);
+		Log.d(TAG, "Sending to url: " + url + " ,mUsername: " + mUsername + " ,mText: " + mText);
 		//prepare a Hashmap to hold all the parameters (needed by aQuery)
 		HashMap<String, String> params = new HashMap<String, String>();
 

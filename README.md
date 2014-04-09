@@ -19,9 +19,9 @@ Instructions
 		- Log.d and Toast and run for first time
 		- switch on view pressed
 	* create new function Execute()
-		- Load text from editext
+		- Load text from editText
 		- check if string is not null
-		- set textview with string
+		- set textView with string
 		- show problem with Thread.sleep(2000)
 - Create new PreferenceActivity --> SettingsActivity + ANDROID MANIFEST
 	* create directory xml and new resource --> settings_main --> PreferenceScreen/PreferenceCategory/EditTextPreference (key, title, summary)
@@ -30,7 +30,7 @@ Instructions
 	* In Execute()
 		- SharedPreferences
 		- check if username is not null
-		- concat username to string from edittext
+		- concatenate username to string from editText
 	* AsyncTask
 		- create and copy all the code
 	* Add remote_settings to PreferenceActivity
@@ -44,7 +44,7 @@ After Break
 	* Declare AQuery
 	* Initialize in OnCreate
 	* Create serverRequest
-	* Create responce
+	* Create response
 	* Don't use our AsyncTask, instead call serverRequest()
 
 EXTRAS
